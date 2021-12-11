@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:54:48
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-10 22:18:59
+ * @LastEditTime: 2021-12-11 19:06:24
  * @Description:
 -->
 <template>
@@ -16,6 +16,7 @@
 <script>
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+
 export default {
   components: {
     Header,
