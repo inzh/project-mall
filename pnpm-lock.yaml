@@ -7,12 +7,13 @@ specifiers:
   '@vue/cli-plugin-vuex': ~4.5.0
   '@vue/cli-service': ~4.5.0
   '@vue/eslint-config-prettier': ^6.0.0
+  axios: ^0.24.0
   babel-eslint: ^10.1.0
   core-js: ^3.6.5
   eslint: ^6.7.2
   eslint-plugin-prettier: ^3.3.1
   eslint-plugin-vue: ^6.2.2
-  less: ^3.0.4
+  less: ^3.13.1
   less-loader: ^5.0.0
   prettier: ^2.2.1
   vue: ^2.6.11
@@ -21,6 +22,7 @@ specifiers:
   vuex: ^3.4.0
 
 dependencies:
+  axios: registry.npmmirror.com/axios/0.24.0
   core-js: registry.npmmirror.com/core-js/3.19.3
   vue: registry.npmmirror.com/vue/2.6.14
   vue-router: registry.npmmirror.com/vue-router/3.5.3
@@ -2986,7 +2988,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: registry.nlark.com/eventemitter3/4.0.7
-      follow-redirects: registry.npmmirror.com/follow-redirects/1.14.6_debug@4.3.3
+      follow-redirects: registry.npmmirror.com/follow-redirects/1.14.6
       requires-port: registry.nlark.com/requires-port/1.0.0
     transitivePeerDependencies:
       - debug
@@ -8527,6 +8529,16 @@ packages:
       postcss-value-parser: registry.npmmirror.com/postcss-value-parser/4.2.0
     dev: true
 
+  registry.npmmirror.com/axios/0.24.0:
+    resolution: {integrity: sha1-gE5voeS5xSiFAd2d/1anoJQNINY=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/axios/download/axios-0.24.0.tgz?cache=0&sync_timestamp=1635218734299&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Faxios%2Fdownload%2Faxios-0.24.0.tgz}
+    name: axios
+    version: 0.24.0
+    dependencies:
+      follow-redirects: registry.npmmirror.com/follow-redirects/1.14.6
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   registry.npmmirror.com/babel-eslint/10.1.0_eslint@6.8.0:
     resolution: {integrity: sha1-aWjlaKkQt4+zd5zdi2rC9HmUMjI=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/babel-eslint/download/babel-eslint-10.1.0.tgz}
     id: registry.npmmirror.com/babel-eslint/10.1.0
@@ -9493,9 +9505,8 @@ packages:
     version: 2.0.2
     dev: true
 
-  registry.npmmirror.com/follow-redirects/1.14.6_debug@4.3.3:
+  registry.npmmirror.com/follow-redirects/1.14.6:
     resolution: {integrity: sha512-fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/follow-redirects/download/follow-redirects-1.14.6.tgz}
-    id: registry.npmmirror.com/follow-redirects/1.14.6
     name: follow-redirects
     version: 1.14.6
     engines: {node: '>=4.0'}
@@ -9504,9 +9515,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-    dependencies:
-      debug: registry.npmmirror.com/debug/4.3.3
-    dev: true
 
   registry.npmmirror.com/fs-write-stream-atomic/1.0.10:
     resolution: {integrity: sha1-tH31NJPvkR33VzHnCp3tAYnbQMk=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/fs-write-stream-atomic/download/fs-write-stream-atomic-1.0.10.tgz}
