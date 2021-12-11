@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:58:19
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-10 22:33:11
+ * @LastEditTime: 2021-12-11 16:17:31
  * @Description:
 -->
 <template>
@@ -84,6 +84,12 @@ export default {
       // 传入 query 参数  /search?searchKeyWord=xxxx
       // this.$router.push({ path: '/search', query: { searchKeyWord: this.searchKeyWord } })
       this.$router.push({ name: 'search', query: { searchKeyWord: this.searchKeyWord } })
+
+      // this.$router.push 返回一个 Promise，底层设定重复调用同一个push会触发底层的 reject 回调，在控制台输出
+      // 可以手动将 push 方法的 reject 回调函数重写，让其不在控制台打印该种错误
+      // 但是这样操作，每次调用 push 方法都要重写回调，很麻烦，因此修改 VueRouter原型上的 push方法
+      // this.$router.push('search', () => { }, () => { })
+
 
     }
   }
