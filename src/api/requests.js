@@ -2,11 +2,13 @@
  * @Author: inzh
  * @Date: 2021-12-11 20:00:13
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-11 20:37:18
+ * @LastEditTime: 2021-12-11 21:22:57
  * @Description: axios二次封装
  * 封装的意义：当 axios 不再维护，只需要改这里，暴露出去的网络请求对象为 requests
  */
 import axios from "axios"
+import nprogress from "nprogress"
+import 'nprogress/nprogress.css'
 
 // 当创建 axios 实例时为 axios实例设定默认值
 // 当调用 requests(config) 时，类似调用 Object.assign(defaultConfig, config)
@@ -22,6 +24,9 @@ const requests = new axios.create({
 // 添加请求拦截器
 requests.interceptors.request.use((config) => {
   // 发送请求之前做些什么
+
+  // 发送请求之前 启用 nprogress进度条
+  nprogress.start()
   return config
 }, (error) => {
   // 对请求错误做些什么
@@ -31,6 +36,7 @@ requests.interceptors.request.use((config) => {
 // 添加响应拦截器
 requests.interceptors.response.use((response) => {
   // 对相应数据做些什么
+  nprogress.done()
   return response
 }, (error) => {
   return Promise.reject(new Error('response Failure'))
