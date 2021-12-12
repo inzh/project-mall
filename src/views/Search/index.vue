@@ -2,14 +2,13 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:57:04
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-11 15:40:47
+ * @LastEditTime: 2021-12-12 16:27:05
  * @Description:
 -->
 <template>
   <div>
     <!-- 通过$route获取query值，耦合度太高 -->
     <!-- <h1>{{ $route.query.searchKeyWord }}</h1> -->
-
     <h1>{{ query }}</h1>
   </div>
 </template>
