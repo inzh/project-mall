@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:03:38
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-13 20:44:37
+ * @LastEditTime: 2021-12-13 20:58:43
  * @Description:
 -->
 <template>
@@ -155,7 +155,12 @@ export default {
           query.categoryId = category3id
         }
         location.query = query
-        this.$router.push(location)
+        // 如果路径中还有 params 参数， 需要将 params 参数 和 query 参数合并
+        if (this.$route.params) {
+          location.params = this.$route.params
+          this.$router.push(location)
+        }
+
       }
     },
     enterSort () {
