@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:03:38
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-13 16:02:18
+ * @LastEditTime: 2021-12-13 16:52:58
  * @Description:
 -->
 <template>
@@ -64,6 +64,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import throttle from 'lodash/throttle'
 export default {
   // TypeNav导航，全局组件
   name: 'TypeNav',
@@ -97,9 +98,14 @@ export default {
     }),
   },
   methods: {
-    changeTypeNavBg (index) {
+    // 调用 lodash 节流函数 在 wait 秒内最多执行 func 一次
+    // throttle() 返回一个经过节流处理的 function
+    // throttle() 最后别使用箭头函数，可能会出现上下文情况
+    // debounce的特点是当事件快速连续不断触发时，动作只会执行一次
+    changeTypeNavBg: throttle(function (index) {
       this.currentIndex = index
-    }
+    }, 40)
+
   }
 }
 </script>
