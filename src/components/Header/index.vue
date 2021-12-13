@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:58:19
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-13 17:53:53
+ * @LastEditTime: 2021-12-13 20:46:39
  * @Description:
 -->
 <template>
@@ -35,9 +35,12 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <a class="logo" title="尚品汇" href="/home">
+        <router-link to="/home" class="logo" title="尚品汇">
           <img src="./images/logo.png" alt="" />
-        </a>
+        </router-link>
+        <!-- <a class="logo" title="尚品汇" href="/home">
+          <img src="./images/logo.png" alt="" />
+        </a> -->
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">

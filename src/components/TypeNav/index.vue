@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:03:38
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-13 20:24:18
+ * @LastEditTime: 2021-12-13 20:44:37
  * @Description:
 -->
 <template>
@@ -100,7 +100,6 @@ export default {
     if (this.$route.path != '/home') {
       this.showSort = false
     }
-    this.$store.dispatch("getCategoryList")
   },
   computed: {
     // mapState() 辅助函数返回一个对象，包含生成的计算属性
