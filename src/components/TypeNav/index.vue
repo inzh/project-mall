@@ -2,70 +2,72 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:03:38
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-13 17:36:15
+ * @LastEditTime: 2021-12-13 20:24:18
  * @Description:
 -->
 <template>
   <div class="type-nav">
     <div class="container">
       <!-- 事件委派，只有当鼠标移除父亲元素才执行相应方法 -->
-      <div @mouseleave="changeTypeNavBg(-1)">
+      <div @mouseenter="enterSort" @mouseleave="leaveSort(-1)">
         <h2 class="all">全部商品分类</h2>
-        <div class="sort">
-          <!-- 不要为每个 a 标签都绑定点击事件，麻烦且消耗性能，为所有 a 标签的父亲绑定点击事件，即事件委托/代理
+        <transition name="sort">
+          <div class="sort" v-show="showSort">
+            <!-- 不要为每个 a 标签都绑定点击事件，麻烦且消耗性能，为所有 a 标签的父亲绑定点击事件，即事件委托/代理
           事件委托： 利用事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。 -->
-          <div class="all-sort-list2" @click="goSearch">
-            <div
-              class="item"
-              v-for="(c1, index) in categoryList"
-              :key="c1.categoryId"
-              @mouseenter="changeTypeNavBg(index)"
-            >
-              <!-- a 标签最好不要使用 <router-link> 代替，因为<router-link>是一个组件
-              每次渲染组件都需要消耗内存，会出现卡顿现象 -->
-              <h3 :class="{ cur: index == currentIndex }">
-                <a
-                  href="javascript:;"
-                  :data-categoryname="c1.categoryName"
-                  :data-category1id="c1.categoryId"
-                  >{{ c1.categoryName }}</a
-                >
-              </h3>
-              <!-- 动态赋予样式 -->
+            <div class="all-sort-list2" @click="goSearch">
               <div
-                class="item-list clearfix"
-                :style="{ display: index == currentIndex ? 'block' : 'none' }"
+                class="item"
+                v-for="(c1, index) in categoryList"
+                :key="c1.categoryId"
+                @mouseenter="changeTypeNavBg(index)"
               >
+                <!-- a 标签最好不要使用 <router-link> 代替，因为<router-link>是一个组件
+              每次渲染组件都需要消耗内存，会出现卡顿现象 -->
+                <h3 :class="{ cur: index == currentIndex }">
+                  <a
+                    href="javascript:;"
+                    :data-categoryname="c1.categoryName"
+                    :data-category1id="c1.categoryId"
+                    >{{ c1.categoryName }}</a
+                  >
+                </h3>
+                <!-- 动态赋予样式 -->
                 <div
-                  class="subitem"
-                  v-for="c2 in c1.categoryChild"
-                  :key="c2.categoryId"
+                  class="item-list clearfix"
+                  :style="{ display: index == currentIndex ? 'block' : 'none' }"
                 >
-                  <dl class="fore">
-                    <dt>
-                      <a
-                        href="javascript:;"
-                        :data-categoryname="c2.categoryName"
-                        :data-category2id="c2.categoryId"
-                        >{{ c2.categoryName }}</a
-                      >
-                    </dt>
-                    <dd>
-                      <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                  <div
+                    class="subitem"
+                    v-for="c2 in c1.categoryChild"
+                    :key="c2.categoryId"
+                  >
+                    <dl class="fore">
+                      <dt>
                         <a
                           href="javascript:;"
-                          :data-categoryname="c3.categoryName"
-                          :data-category3id="c3.categoryId"
-                          >{{ c3.categoryName }}</a
+                          :data-categoryname="c2.categoryName"
+                          :data-category2id="c2.categoryId"
+                          >{{ c2.categoryName }}</a
                         >
-                      </em>
-                    </dd>
-                  </dl>
+                      </dt>
+                      <dd>
+                        <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                          <a
+                            href="javascript:;"
+                            :data-categoryname="c3.categoryName"
+                            :data-category3id="c3.categoryId"
+                            >{{ c3.categoryName }}</a
+                          >
+                        </em>
+                      </dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </transition>
       </div>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -90,10 +92,14 @@ export default {
   data () {
     return {
       currentIndex: -1,
+      showSort: true
     }
   },
   // 当该组件被挂载时执行 组件分发 Action，目标为 getCategoryList
   mounted () {
+    if (this.$route.path != '/home') {
+      this.showSort = false
+    }
     this.$store.dispatch("getCategoryList")
   },
   computed: {
@@ -151,6 +157,17 @@ export default {
         }
         location.query = query
         this.$router.push(location)
+      }
+    },
+    enterSort () {
+      if (this.$route.path != '/home') {
+        this.showSort = true
+      }
+    },
+    leaveSort (index) {
+      this.changeTypeNavBg(index)
+      if (this.$route.path != '/home') {
+        this.showSort = false
       }
     }
   }
@@ -278,6 +295,28 @@ export default {
           // }
         }
       }
+    }
+
+    .sort-enter {
+      height: 0px;
+    }
+
+    .sort-enter-to {
+      height: 461px;
+    }
+
+    .sort-enter-active {
+      transition: all 0.3s linear;
+    }
+
+    .sort-leave {
+      height: 461px;
+    }
+    .sort-leave-to {
+      height: 0px;
+    }
+    .sort-leave-active {
+      transition: all 0.3s linear;
     }
   }
 }

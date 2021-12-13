@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:58:19
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-13 17:33:21
+ * @LastEditTime: 2021-12-13 17:53:53
  * @Description:
 -->
 <template>
@@ -35,7 +35,7 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <a class="logo" title="尚品汇" href="###" target="_blank">
+        <a class="logo" title="尚品汇" href="/home">
           <img src="./images/logo.png" alt="" />
         </a>
       </h1>

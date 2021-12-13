@@ -9,7 +9,9 @@
   <div>
     <!-- 通过$route获取query值，耦合度太高 -->
     <!-- <h1>{{ $route.query.searchKeyWord }}</h1> -->
-    <h1>{{ query }}</h1>
+    <!-- <h1>{{ query }}</h1> -->
+
+    <TypeNav />
   </div>
 </template>
 
