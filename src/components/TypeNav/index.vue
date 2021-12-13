@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:03:38
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-13 16:52:58
+ * @LastEditTime: 2021-12-13 17:36:15
  * @Description:
 -->
 <template>
@@ -12,15 +12,24 @@
       <div @mouseleave="changeTypeNavBg(-1)">
         <h2 class="all">全部商品分类</h2>
         <div class="sort">
-          <div class="all-sort-list2">
+          <!-- 不要为每个 a 标签都绑定点击事件，麻烦且消耗性能，为所有 a 标签的父亲绑定点击事件，即事件委托/代理
+          事件委托： 利用事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。 -->
+          <div class="all-sort-list2" @click="goSearch">
             <div
               class="item"
               v-for="(c1, index) in categoryList"
               :key="c1.categoryId"
               @mouseenter="changeTypeNavBg(index)"
             >
+              <!-- a 标签最好不要使用 <router-link> 代替，因为<router-link>是一个组件
+              每次渲染组件都需要消耗内存，会出现卡顿现象 -->
               <h3 :class="{ cur: index == currentIndex }">
-                <a href="">{{ c1.categoryName }}</a>
+                <a
+                  href="javascript:;"
+                  :data-categoryname="c1.categoryName"
+                  :data-category1id="c1.categoryId"
+                  >{{ c1.categoryName }}</a
+                >
               </h3>
               <!-- 动态赋予样式 -->
               <div
@@ -34,11 +43,21 @@
                 >
                   <dl class="fore">
                     <dt>
-                      <a href="">{{ c2.categoryName }}</a>
+                      <a
+                        href="javascript:;"
+                        :data-categoryname="c2.categoryName"
+                        :data-category2id="c2.categoryId"
+                        >{{ c2.categoryName }}</a
+                      >
                     </dt>
                     <dd>
                       <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                        <a href="">{{ c3.categoryName }}</a>
+                        <a
+                          href="javascript:;"
+                          :data-categoryname="c3.categoryName"
+                          :data-category3id="c3.categoryId"
+                          >{{ c3.categoryName }}</a
+                        >
                       </em>
                     </dd>
                   </dl>
@@ -104,8 +123,36 @@ export default {
     // debounce的特点是当事件快速连续不断触发时，动作只会执行一次
     changeTypeNavBg: throttle(function (index) {
       this.currentIndex = index
-    }, 40)
+    }, 40),
 
+    // 菜单路由跳转，最好的解决方案是 编程式导航 + 事件委派
+    goSearch (event) {
+      // 存在问题：事件委派，所有子节点如 h3，div，dt，dl 的事件都委派给了父节点
+      // 只有点击 a 标签才会发送路由跳转，而且需要确定点击的是哪一个 a 标签
+
+      // event.target 获取当前触发事件的元素,
+      // event.target.dataset 获取触发事件元素上的自定义属性
+      // 如自定义属性 data-categoryname='xxx' 则获得 { categoryname: 'xxx' }
+      let element = event.target
+      // element.dataset 返回{ v-18b3c0cc: '', categoryname: '图书、音像、电子书刊' } 解构赋值获得 categoryname
+      let { categoryname, category1id, category2id, category3id } = element.dataset
+      // 只有 a 标签才有 categoryname 属性， 因此可以判断点击的是否为 a 标签
+      if (categoryname) {
+        // location 最终形式应该是 {name: 'search, query: { categoryName: '', categoryId: '' } }
+        let location = { name: 'search' }
+        let query = { categoryName: categoryname }
+        // 为三级菜单再设置自定义属性 category1id 来判断点击的是哪一级菜单
+        if (category1id) {
+          query.categoryId = category1id
+        } else if (category2id) {
+          query.categoryId = category2id
+        } else if (category3id) {
+          query.categoryId = category3id
+        }
+        location.query = query
+        this.$router.push(location)
+      }
+    }
   }
 }
 </script>
