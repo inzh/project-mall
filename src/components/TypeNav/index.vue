@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:03:38
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-13 15:58:48
+ * @LastEditTime: 2021-12-13 16:02:18
  * @Description:
 -->
 <template>
@@ -22,7 +22,11 @@
               <h3 :class="{ cur: index == currentIndex }">
                 <a href="">{{ c1.categoryName }}</a>
               </h3>
-              <div class="item-list clearfix">
+              <!-- 动态赋予样式 -->
+              <div
+                class="item-list clearfix"
+                :style="{ display: index == currentIndex ? 'block' : 'none' }"
+              >
                 <div
                   class="subitem"
                   v-for="c2 in c1.categoryChild"
@@ -161,7 +165,7 @@ export default {
           }
 
           .item-list {
-            display: none;
+            // display: none;
             position: absolute;
             width: 734px;
             min-height: 460px;
@@ -214,11 +218,11 @@ export default {
             }
           }
 
-          &:hover {
-            .item-list {
-              display: block;
-            }
-          }
+          // &:hover {
+          //   .item-list {
+          //     display: block;
+          //   }
+          // }
         }
       }
     }
