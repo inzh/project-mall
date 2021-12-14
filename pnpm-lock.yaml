@@ -18,6 +18,7 @@ specifiers:
   mockjs: ^1.1.0
   nprogress: ^0.2.0
   prettier: ^2.2.1
+  swiper: ^7.3.2
   vue: ^2.6.11
   vue-router: ^3.2.0
   vue-template-compiler: ^2.6.11
@@ -28,6 +29,7 @@ dependencies:
   core-js: registry.npmmirror.com/core-js/3.19.3
   mockjs: 1.1.0
   nprogress: registry.nlark.com/nprogress/0.2.0
+  swiper: 7.3.2
   vue: registry.npmmirror.com/vue/2.6.14
   vue-router: registry.npmmirror.com/vue-router/3.5.3
   vuex: registry.nlark.com/vuex/3.6.2_vue@2.6.14
@@ -166,6 +168,12 @@ packages:
 
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
+
+  /dom7/4.0.2:
+    resolution: {integrity: sha512-Ji4t3Y/vNQg6Q9bR+Syx6Td8qiq8116LE9h4OzbPuxdxK7DyyX7i8EXkYgBX6+EiX6+oYXDTH5BSN29G/n4jug==}
+    dependencies:
+      ssr-window: 4.0.2
+    dev: false
 
   /emojis-list/2.1.0:
     resolution: {integrity: sha1-TapNnbAPmBmIDHn6RXrlsJof04k=}
@@ -330,6 +338,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /ssr-window/4.0.2:
+    resolution: {integrity: sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ==}
+    dev: false
+
   /supports-color/5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
     engines: {node: '>=4'}
@@ -343,6 +355,15 @@ packages:
     dependencies:
       has-flag: 4.0.0
     dev: true
+
+  /swiper/7.3.2:
+    resolution: {integrity: sha512-0l0YaGAIV+lo/4qBcdR/UeWNub9OWXAAa4LDjaHUXkfQTInFTzz4pb6OHtlLZVgu8wTOFnvq6+1DtU4dSbg8Xw==}
+    engines: {node: '>= 4.7.0'}
+    requiresBuild: true
+    dependencies:
+      dom7: 4.0.2
+      ssr-window: 4.0.2
+    dev: false
 
   /vue-loader/16.8.3_webpack@4.46.0:
     resolution: {integrity: sha512-7vKN45IxsKxe5GcVCbc2qFU5aWzyiLrYJyUuMz4BQLKctCj/fmCa0w6fGiiQ2cLFetNcek1ppGJQDCup0c1hpA==}

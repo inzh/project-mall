@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:09:05
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-14 09:59:11
+ * @LastEditTime: 2021-12-14 11:05:40
  * @Description:
 -->
 <template>
@@ -10,18 +10,23 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
+            <div
+              class="swiper-slide"
+              v-for="(carouse, index) in bannerList"
+              :key="carouse.id"
+            >
+              <img :src="carouse.imgUrl" />
             </div>
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
-
           <!-- 如果需要导航按钮 -->
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
+          <!-- 如果需要滚动条 -->
+          <div class="swiper-scrollbar"></div>
         </div>
       </div>
       <div class="right">
@@ -98,11 +103,45 @@
 </template>
 
 <script>
+import Swiper from 'swiper/swiper-bundle.min.js'
+import 'swiper/swiper-bundle.min.css'
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState({
+      bannerList: state => state.home.banners
+    })
+  },
   mounted () {
     this.$store.dispatch('getBanners')
-  }
+    // swiper必须在DOM已经渲染完毕才能初始化，而这里的swiper dom是异步请求的
+    // 所以需要用定时器保证swiper dom渲染完成
+    setTimeout(() => {
+      let mySwiper = new Swiper('.swiper', {
+        autoplay: true,
+        loop: true, // 循环模式选项
+
+        // 如果需要分页器
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+
+        // 如果需要前进后退按钮
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+
+        // 如果需要滚动条
+        scrollbar: {
+          el: '.swiper-scrollbar',
+        },
+      })
+    }, 3000)
+  },
 }
+
 </script>
 
 <style lang="less" scoped>

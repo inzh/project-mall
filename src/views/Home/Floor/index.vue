@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:13:02
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-11 19:34:46
+ * @LastEditTime: 2021-12-14 10:39:34
  * @Description:
 -->
 <template>
@@ -61,8 +61,8 @@
                 <div class="swiper-pagination"></div>
 
                 <!-- 如果需要导航按钮 -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+                <!-- <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div> -->
               </div>
             </div>
             <div class="split">
