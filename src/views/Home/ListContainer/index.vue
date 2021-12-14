@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:09:05
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-14 11:05:40
+ * @LastEditTime: 2021-12-14 15:50:10
  * @Description:
 -->
 <template>
@@ -116,30 +116,60 @@ export default {
     this.$store.dispatch('getBanners')
     // swiper必须在DOM已经渲染完毕才能初始化，而这里的swiper dom是异步请求的
     // 所以需要用定时器保证swiper dom渲染完成
-    setTimeout(() => {
-      let mySwiper = new Swiper('.swiper', {
-        autoplay: true,
-        loop: true, // 循环模式选项
+    // setTimeout(() => {
+    //   let mySwiper = new Swiper('.swiper', {
+    //     autoplay: true,
+    //     loop: true, // 循环模式选项
 
-        // 如果需要分页器
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
+    //     // 如果需要分页器
+    //     pagination: {
+    //       el: '.swiper-pagination',
+    //       clickable: true,
+    //     },
 
-        // 如果需要前进后退按钮
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
+    //     // 如果需要前进后退按钮
+    //     navigation: {
+    //       nextEl: '.swiper-button-next',
+    //       prevEl: '.swiper-button-prev',
+    //     },
 
-        // 如果需要滚动条
-        scrollbar: {
-          el: '.swiper-scrollbar',
-        },
-      })
-    }, 3000)
+    //     // 如果需要滚动条
+    //     scrollbar: {
+    //       el: '.swiper-scrollbar',
+    //     },
+    //   })
+    // }, 3000)
   },
+  // 轮播图 完美解决方案 watch + $nextTick()
+  watch: {
+    bannerList: {
+      handler (newValue, oldValue) {
+        this.$nextTick(() => {
+          let mySwiper = new Swiper('.swiper', {
+            autoplay: true,
+            loop: true, // 循环模式选项
+
+            // 如果需要分页器
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+
+            // 如果需要前进后退按钮
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+
+            // 如果需要滚动条
+            // scrollbar: {
+            //   el: '.swiper-scrollbar',
+            // },
+          })
+        })
+      }
+    }
+  }
 }
 
 </script>
