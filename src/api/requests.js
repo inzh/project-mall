@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 20:00:13
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-11 21:22:57
+ * @LastEditTime: 2021-12-14 09:01:39
  * @Description: axios二次封装
  * 封装的意义：当 axios 不再维护，只需要改这里，暴露出去的网络请求对象为 requests
  */
@@ -13,7 +13,7 @@ import 'nprogress/nprogress.css'
 // 当创建 axios 实例时为 axios实例设定默认值
 // 当调用 requests(config) 时，类似调用 Object.assign(defaultConfig, config)
 // 将传入的 config 和这里默认设置的配置合并
-const requests = new axios.create({
+const requests = axios.create({
   // `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
   baseURL: '/api',
 

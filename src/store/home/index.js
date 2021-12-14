@@ -2,20 +2,28 @@
  * @Author: inzh
  * @Date: 2021-12-12 16:20:41
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-12 21:03:09
+ * @LastEditTime: 2021-12-14 09:47:11
  * @Description:
  */
-import { reqCategoryList } from '@/api'
+import { reqCategoryList, reqBanners, reqFloors } from '@/api'
 const home = {
   state: {
-    categoryList: []
+    categoryList: [],
+    banners: [],
+    floors: [],
   },
   getters: {},
   mutations: {
     // 对于模块内部的 mutation 和 getter，接收的第一个参数是模块的局部状态对象。
     // 可以向 store.commit 传入额外的参数，即 mutation 的 载荷（payload）这里是 categoryList
-    CATEGORYLIST (state, categoryList) {
-      state.categoryList = categoryList
+    RECEIVE_CATEGORY_LIST (state, categoryList) {
+      state.categoryList = categoryList.slice(0, categoryList.length - 1)
+    },
+    RECEIVE_BANNERS (state, Banners) {
+      state.banners = Banners
+    },
+    RECEIVE_FLOORS (state, Floors) {
+      state.floors = Floors
     }
   },
   actions: {
@@ -27,8 +35,22 @@ const home = {
     // async 确保函数返回 Promise，await 关键字让 JavaScript 引擎等待直到 promise 完成并返回结果
     async getCategoryList ({ commit }) {
       let result = await reqCategoryList()
-      if (result.status == 200) {
-        commit("CATEGORYLIST", result.data.data)
+      if (result.status === 200) {
+        commit("RECEIVE_CATEGORY_LIST", result.data.data)
+      }
+    },
+
+    async getBanners ({ commit }) {
+      let result = await reqBanners()
+      if (result.data.code === 200) {
+        commit('RECEIVE_BANNERS', result.data.data)
+      }
+    },
+
+    async getFloors ({ commit }) {
+      let result = await reqFloors()
+      if (result.data.code === 200) {
+        commit('RECEIVE_FLOORS', result.data.data)
       }
     }
   }

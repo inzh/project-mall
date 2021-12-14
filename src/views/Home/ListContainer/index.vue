@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:09:05
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-11 19:34:08
+ * @LastEditTime: 2021-12-14 09:59:11
  * @Description:
 -->
 <template>
@@ -99,7 +99,9 @@
 
 <script>
 export default {
-
+  mounted () {
+    this.$store.dispatch('getBanners')
+  }
 }
 </script>
 
