@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:09:05
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-14 15:50:10
+ * @LastEditTime: 2021-12-14 17:32:42
  * @Description:
 -->
 <template>
@@ -10,24 +10,7 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper">
-          <div class="swiper-wrapper">
-            <div
-              class="swiper-slide"
-              v-for="(carouse, index) in bannerList"
-              :key="carouse.id"
-            >
-              <img :src="carouse.imgUrl" />
-            </div>
-          </div>
-          <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-          <!-- 如果需要滚动条 -->
-          <div class="swiper-scrollbar"></div>
-        </div>
+        <Carousel :carouselList="bannerList" />
       </div>
       <div class="right">
         <div class="news">
@@ -103,9 +86,8 @@
 </template>
 
 <script>
-import Swiper from 'swiper/swiper-bundle.min.js'
-import 'swiper/swiper-bundle.min.css'
 import { mapState } from 'vuex'
+import Carousel from '@/components/Carousel'
 export default {
   computed: {
     ...mapState({
@@ -140,35 +122,8 @@ export default {
     //   })
     // }, 3000)
   },
-  // 轮播图 完美解决方案 watch + $nextTick()
-  watch: {
-    bannerList: {
-      handler (newValue, oldValue) {
-        this.$nextTick(() => {
-          let mySwiper = new Swiper('.swiper', {
-            autoplay: true,
-            loop: true, // 循环模式选项
-
-            // 如果需要分页器
-            pagination: {
-              el: '.swiper-pagination',
-              clickable: true,
-            },
-
-            // 如果需要前进后退按钮
-            navigation: {
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            },
-
-            // 如果需要滚动条
-            // scrollbar: {
-            //   el: '.swiper-scrollbar',
-            // },
-          })
-        })
-      }
-    }
+  components: {
+    Carousel
   }
 }
 
