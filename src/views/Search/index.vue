@@ -11,10 +11,10 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <!-- 分类面包屑 -->
+            <li class="with-x" v-if="searchParams.categoryName">
+              {{ searchParams.categoryName }}<i @click="removeCategory">×</i>
+            </li>
           </ul>
         </div>
 
@@ -157,7 +157,23 @@ export default {
     // 将分发 action 封装成一个函数，以便随处使用
     getSearchInfo () {
       this.$store.dispatch('getSearchList', this.searchParams)
-    }
+    },
+    removeCategory () {
+      // 将 searchParams 对应参数设置为 undefined，向后台请求时，searchParams 不会包含这些参数
+      // 当删除分类面包屑时，需要将 searchParams 中所有与分类有关的参数置为 undefined
+      this.searchParams.categoryName = undefined
+      this.searchParams.category1Id = undefined
+      this.searchParams.category2Id = undefined
+      this.searchParams.category3Id = undefined
+      // 点击 X 号去掉面包屑导航时，需要重新再请求一次
+      this.getSearchInfo()
+      // 如果路径中没有 params 参数，则 this.$route.params 返回 空对象，空对象是真值
+      // 如果还有 params 参数 需要带上 params 参数跳转
+      // 再次访问 search 组件并不会重新挂载 search 组件，这里是通过监听路由变化实现请求数据
+      if (this.$route.params) {
+        this.$router.push({ name: 'search', params: this.$route.params })
+      }
+    },
   },
   computed: {
     // 请注意 mapGetters 不存在模块的概念，所有模块的 Getters 都在 this.$store.getters.xxx

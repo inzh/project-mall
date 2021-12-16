@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:58:19
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-16 17:08:26
+ * @LastEditTime: 2021-12-16 20:54:21
  * @Description:
 -->
 <template>
@@ -99,7 +99,6 @@ export default {
         location.query = this.$route.query
         this.$router.push(location)
       }
-      this.keyword = ''
     }
   }
 }
