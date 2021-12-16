@@ -24,11 +24,19 @@
               {{ searchParams.trademark.split(':')[1]
               }}<i @click="removeTrademark">×</i>
             </li>
+            <!-- 售卖属性面包屑导航 -->
+            <li
+              class="with-x"
+              v-for="(prop, index) in searchParams.props"
+              :key="index"
+            >
+              {{ prop.split(':')[1] }}<i @click="removeProp(index)">×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector @tradeMarkInfo="tradeMarkInfo" />
+        <SearchSelector @tradeMarkInfo="tradeMarkInfo" @attrInfo="attrInfo" />
 
         <!--details-->
         <div class="details clearfix">
@@ -203,6 +211,17 @@ export default {
     removeTrademark () {
       this.searchParams.trademark = undefined
       this.getSearchInfo()
+    },
+    attrInfo (attrReq) {
+      if (this.searchParams.props.indexOf(attrReq) == -1) {
+        this.searchParams.props.push(attrReq)
+        this.getSearchInfo()
+      }
+    },
+    removeProp (index) {
+      this.searchParams.props.splice(index, 1)
+      this.getSearchInfo()
+
     }
   },
   computed: {
