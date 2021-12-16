@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:58:19
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-13 21:06:54
+ * @LastEditTime: 2021-12-16 17:08:26
  * @Description:
 -->
 <template>
@@ -43,12 +43,12 @@
         </a> -->
       </h1>
       <div class="searchArea">
-        <form action="###" class="searchForm">
+        <form class="searchForm">
           <input
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
-            v-model="searchKeyWord"
+            v-model="keyword"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
@@ -67,7 +67,7 @@
 export default {
   data () {
     return {
-      searchKeyWord: '',
+      keyword: '',
     }
   },
   methods: {
@@ -95,10 +95,11 @@ export default {
 
       // 如果路径中还有 query 参数， 需要将 query参数 和 params 参数合并
       if (this.$route.query) {
-        let location = { name: 'search', params: { searchKeyWord: this.searchKeyWord || undefined } }
+        let location = { name: 'search', params: { keyword: this.keyword || undefined } }
         location.query = this.$route.query
         this.$router.push(location)
       }
+      this.keyword = ''
     }
   }
 }

@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 21:23:38
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-13 21:05:05
+ * @LastEditTime: 2021-12-16 17:01:27
  * @Description:
  */
 import Vue from 'vue'
@@ -74,7 +74,7 @@ const routes = [
     name: 'search',
     // path: '/search/:searchKeyWord?', 既可以匹配 /search/searchKeyWord 也可以 /search?searchKeyWord
     // 还可以 /search/searchKeyWord？searchKeyWord=xxx
-    path: '/search/:searchKeyWord?',
+    path: '/search/:keyword?',
     component: Search,
     meta: {
       showFooter: true

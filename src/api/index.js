@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 20:00:36
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-14 16:12:10
+ * @LastEditTime: 2021-12-16 15:44:31
  * @Description: 将 API 统一管理，防止 URL 发生改变时需要到处修改 URL
  */
 import requests from './requests'
@@ -20,3 +20,8 @@ export const reqCategoryList = () => {
 
 export const reqBanners = () => mockAjax.get('/banners')
 export const reqFloors = () => mockAjax.get('/floors')
+export const reqSearchList = (params) => requests({
+  url: '/list',
+  method: 'post',
+  data: params
+})

@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:03:38
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-14 10:44:16
+ * @LastEditTime: 2021-12-16 16:55:14
  * @Description:
 -->
 <template>
@@ -148,11 +148,11 @@ export default {
         let query = { categoryName: categoryname }
         // 为三级菜单再设置自定义属性 category1id 来判断点击的是哪一级菜单
         if (category1id) {
-          query.categoryId = category1id
+          query.category1Id = category1id
         } else if (category2id) {
-          query.categoryId = category2id
+          query.category2Id = category2id
         } else if (category3id) {
-          query.categoryId = category3id
+          query.category3Id = category3id
         }
         location.query = query
         // 如果路径中还有 params 参数， 需要将 params 参数 和 query 参数合并
