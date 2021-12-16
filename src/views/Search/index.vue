@@ -19,11 +19,16 @@
             <li class="with-x" v-if="searchParams.keyword">
               {{ searchParams.keyword }}<i @click="removeKeyword">×</i>
             </li>
+            <!-- 品牌面包屑导航 -->
+            <li class="with-x" v-if="searchParams.trademark">
+              {{ searchParams.trademark.split(':')[1]
+              }}<i @click="removeTrademark">×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector @tradeMarkInfo="tradeMarkInfo" />
 
         <!--details-->
         <div class="details clearfix">
@@ -188,6 +193,16 @@ export default {
       if (this.$route.query) {
         this.$router.push({ name: 'search', query: this.$route.query })
       }
+    },
+    // 如果子组件事件抛出一个值，则这个值将会作为第一个参数传入父组件监听事件函数
+    tradeMarkInfo (tradeMark) {
+      // 请求格式为 "ID:品牌名称"
+      this.searchParams.trademark = `${tradeMark.tmId}:${tradeMark.tmName}`
+      this.getSearchInfo()
+    },
+    removeTrademark () {
+      this.searchParams.trademark = undefined
+      this.getSearchInfo()
     }
   },
   computed: {
