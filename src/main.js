@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:54:19
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-14 09:42:16
+ * @LastEditTime: 2021-12-16 21:28:11
  * @Description:
  */
 import Vue from 'vue'
@@ -18,5 +18,10 @@ Vue.component(TypeNav.name, TypeNav)
 new Vue({
   router,
   store,
+  // 所有生命周期钩子的 this 上下文将自动绑定至实例中
+  beforeCreate () {
+    // 在 Vue 原型上绑定一个 bus 实例
+    Vue.prototype.$bus = this
+  },
   render: h => h(App)
 }).$mount("#app")

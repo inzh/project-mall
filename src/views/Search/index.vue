@@ -15,6 +15,10 @@
             <li class="with-x" v-if="searchParams.categoryName">
               {{ searchParams.categoryName }}<i @click="removeCategory">×</i>
             </li>
+            <!-- 关键字面包屑 -->
+            <li class="with-x" v-if="searchParams.keyword">
+              {{ searchParams.keyword }}<i @click="removeKeyword">×</i>
+            </li>
           </ul>
         </div>
 
@@ -174,6 +178,17 @@ export default {
         this.$router.push({ name: 'search', params: this.$route.params })
       }
     },
+    removeKeyword () {
+      // 当删除关键字面包屑时，需要将 searchParams 中的 keyword 参数置为 undefined
+      this.searchParams.keyword = undefined
+      this.getSearchInfo()
+      // 通过 $bus 事件总线 发送一个全局事件，清除 搜索框中的关键字
+      this.$bus.$emit("clearKeyword")
+      // 如果路由中还有query参数，应当保留下来
+      if (this.$route.query) {
+        this.$router.push({ name: 'search', query: this.$route.query })
+      }
+    }
   },
   computed: {
     // 请注意 mapGetters 不存在模块的概念，所有模块的 Getters 都在 this.$store.getters.xxx

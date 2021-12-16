@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:58:19
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-16 20:54:21
+ * @LastEditTime: 2021-12-16 21:29:50
  * @Description:
 -->
 <template>
@@ -69,6 +69,12 @@ export default {
     return {
       keyword: '',
     }
+  },
+  mounted () {
+    // Header 组件一旦挂载，就监听事件总线中的 clearKeyword 事件
+    this.$bus.$on('clearKeyword', () => {
+      this.keyword = ''
+    })
   },
   methods: {
     goSearch () {
