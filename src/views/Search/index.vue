@@ -43,23 +43,23 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{ active: isOrderOne }" @click="changeOrder('1')">
+                  <a href="javascript:;"
+                    >综合<span
+                      v-show="isOrderOne"
+                      class="iconfont"
+                      :class="{ 'icon-Up-': isUp, 'icon-Down-': isDown }"
+                    ></span
+                  ></a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li :class="{ active: isOrderTwo }" @click="changeOrder('2')">
+                  <a href="javascript:;"
+                    >销量<span
+                      v-show="isOrderTwo"
+                      class="iconfont"
+                      :class="{ 'icon-Up-': isUp, 'icon-Down-': isDown }"
+                    ></span
+                  ></a>
                 </li>
               </ul>
             </div>
@@ -152,7 +152,7 @@ export default {
         keyword: '',
         props: [],
         trademark: '',
-        order: '',
+        order: '1:desc',
         pageNo: 1,
         pageSize: 4
       }
@@ -222,12 +222,38 @@ export default {
       this.searchParams.props.splice(index, 1)
       this.getSearchInfo()
 
+    },
+    changeOrder (flag) {
+      // 获取初始的 order，判断排序方式是否变化
+      let originalFlag = this.searchParams.order.split(':')[0]
+      let originalOrder = this.searchParams.order.split(':')[1]
+      // 若排序方式未发生变化，则修改 升降序
+      if (flag === originalFlag) {
+        this.searchParams.order = originalOrder == 'desc' ? `${flag}:asc` : `${flag}:desc`
+      } else {
+        // 若排序方式发生变化，则直接将 排序修改为新的排序方式，默认降序
+        this.searchParams.order = `${flag}:desc`
+      }
+      // 然后再次发送请求
+      this.getSearchInfo()
     }
   },
   computed: {
     // 请注意 mapGetters 不存在模块的概念，所有模块的 Getters 都在 this.$store.getters.xxx
     // mapGetters 传入数组，若想为 getter 属性取别名，使用对象形式
-    ...mapGetters(['goodsList'])
+    ...mapGetters(['goodsList']),
+    isOrderOne () {
+      return this.searchParams.order.indexOf('1') != -1
+    },
+    isOrderTwo () {
+      return this.searchParams.order.indexOf('2') != -1
+    },
+    isUp () {
+      return this.searchParams.order.indexOf('asc') != -1
+    },
+    isDown () {
+      return this.searchParams.order.indexOf('desc') != -1
+    }
   },
   // 监听路由变化实现 再次发送请求
   watch: {
@@ -354,6 +380,10 @@ export default {
                 padding: 11px 15px;
                 color: #777;
                 text-decoration: none;
+                span {
+                  font-size: 6px;
+                  margin-left: 2px;
+                }
               }
 
               &.active {
