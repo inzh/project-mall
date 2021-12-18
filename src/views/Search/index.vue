@@ -80,9 +80,11 @@
                     </strong>
                   </div>
                   <div class="attr">
-                    <a target="_blank" href="item.html" :title="good.title">{{
-                      good.title
-                    }}</a>
+                    <router-link
+                      :to="`/detail/${good.id}`"
+                      :title="good.title"
+                      >{{ good.title }}</router-link
+                    >
                   </div>
                   <div class="commit">
                     <i class="command">已有<span>2000</span>人评价</i>
