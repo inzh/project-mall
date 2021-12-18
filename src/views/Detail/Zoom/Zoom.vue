@@ -2,17 +2,17 @@
  * @Author: inzh
  * @Date: 2021-12-18 10:58:42
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-18 17:10:16
+ * @LastEditTime: 2021-12-18 17:31:35
  * @Description:
 -->
 <template>
   <div class="spec-preview">
     <img :src="imgObj.imgUrl" />
-    <div class="event"></div>
+    <div class="event" @mousemove="moveMask"></div>
     <div class="big">
-      <img :src="imgObj.imgUrl" />
+      <img :src="imgObj.imgUrl" ref="big" />
     </div>
-    <div class="mask"></div>
+    <div class="mask" ref="mask"></div>
   </div>
 </template>
 
@@ -33,6 +33,22 @@ export default {
   computed: {
     imgObj () {
       return this.zoomImg ? this.zoomImg[this.currentIndex] : {}
+    }
+  },
+  methods: {
+    moveMask (e) {
+      let mask = this.$refs.mask
+      let big = this.$refs.big
+      let left = e.offsetX - mask.offsetWidth / 2
+      let top = e.offsetY - mask.offsetHeight / 2
+      if (left >= mask.offsetWidth) left = mask.offsetWidth
+      if (left <= 0) left = 0
+      if (top <= 0) top = 0
+      if (top >= mask.offsetHeight) top = mask.offsetHeight
+      mask.style.left = left + 'px'
+      mask.style.top = top + 'px'
+      big.style.left = -2 * left + 'px'
+      big.style.top = -2 * top + 'px'
     }
   }
 }
