@@ -102,34 +102,13 @@
               </li>
             </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
+          <div style="text-align: center">
+            <Pagination
+              :pageNo="pageNo"
+              :continues="5"
+              :totalPages="totalPages"
+              @changePage="changePage"
+            />
           </div>
         </div>
       </div>
@@ -140,6 +119,7 @@
 <script>
 import SearchSelector from './SearchSelector/SearchSelector'
 import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'Search',
   data () {
@@ -236,6 +216,10 @@ export default {
       }
       // 然后再次发送请求
       this.getSearchInfo()
+    },
+    changePage (page) {
+      this.searchParams.pageNo = page
+      this.getSearchInfo()
     }
   },
   computed: {
@@ -253,7 +237,11 @@ export default {
     },
     isDown () {
       return this.searchParams.order.indexOf('desc') != -1
-    }
+    },
+    ...mapState({
+      pageNo: state => state.search.searchList.pageNo,
+      totalPages: state => state.search.searchList.totalPages
+    })
   },
   // 监听路由变化实现 再次发送请求
   watch: {
