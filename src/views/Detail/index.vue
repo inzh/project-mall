@@ -113,7 +113,7 @@
                 >
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="addShopCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -392,6 +392,13 @@ export default {
         val = parseInt(val)
       }
       this.skuNum = val
+    },
+    async addShopCart () {
+      try {
+        await this.$store.dispatch('addOrUpdateShopCart', { skuId: this.$route.params.skuId, skuNum: this.skuNum })
+      } catch (error) {
+        alert(error.message)
+      }
     }
   }
 }

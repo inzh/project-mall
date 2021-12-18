@@ -2,10 +2,10 @@
  * @Author: inzh
  * @Date: 2021-12-18 11:45:39
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-18 13:36:32
+ * @LastEditTime: 2021-12-18 22:30:10
  * @Description:
  */
-import { reqDetail } from "@/api"
+import { reqDetail, reqAddOrUpdateShopCart } from "@/api"
 const detail = {
   state: {
     detailInfo: {}
@@ -32,6 +32,14 @@ const detail = {
       let result = await reqDetail(skuId)
       if (result.data.code == 200) {
         commit('RECEIVE_DETAIL_INFO', result.data.data)
+      }
+    },
+    async addOrUpdateShopCart ({ commit }, { skuId, skuNum }) {
+      let result = await reqAddOrUpdateShopCart(skuId, skuNum)
+      if (result.data.code == 200) {
+        return 'ok'
+      } else {
+        return Promise.reject(new Error('加入购物车失败'))
       }
     }
   }

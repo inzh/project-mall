@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 20:00:36
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-18 13:13:59
+ * @LastEditTime: 2021-12-18 22:21:30
  * @Description: 将 API 统一管理，防止 URL 发生改变时需要到处修改 URL
  */
 import requests from './requests'
@@ -29,4 +29,9 @@ export const reqSearchList = (params) => requests({
 export const reqDetail = (skuId) => requests({
   url: `/item/${skuId}`,
   method: 'get'
+})
+
+export const reqAddOrUpdateShopCart = (skuId, skuNum) => requests({
+  url: `/cart/addToCart/${skuId}/${skuNum}`,
+  method: 'post'
 })
