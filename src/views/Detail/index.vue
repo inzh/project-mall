@@ -402,7 +402,7 @@ export default {
         // 只有服务器返回请求成功，才会执行路由跳转，否则跳到 catch 行捕获错误
         // 路由跳转时需带上 购买数量以及购买商品详情，购买数量可以通过query参数传递，购买商品详情是一个对象，通过session传递
         this.$router.push({ name: 'addcartsuccess', query: { skuNum: this.skuNum } })
-        // this.spuSaleAttrList 带有 __ob__:Observer 不能直接使用数组方法，先转 json ，再从 json 转回数组
+        // this.spuSaleAttrList 带有 __ob__:Observer 不是可迭代对象，不能使用 for of 或者 for in 方法，先转 json ，再从 json 转回数组
         let spuSaleAttrList = JSON.parse(JSON.stringify(this.spuSaleAttrList))
         // 将选择的商品属性加入 selectedAttr 数组，当点击加入购物车，一同写入 sessionStorage
         for (let spuSaleAttr of spuSaleAttrList) {
