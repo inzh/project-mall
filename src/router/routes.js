@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-18 11:38:50
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-18 11:39:57
+ * @LastEditTime: 2021-12-18 22:38:26
  * @Description:
  */
 
@@ -11,6 +11,7 @@ import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Search from '@/views/Search'
 import Detail from '@/views/Detail'
+import AddCartSuccess from '@/views/AddCartSuccess'
 const routes = [
   {
     path: '',
@@ -87,7 +88,15 @@ const routes = [
     meta: {
       showFooter: true
     }
-  }
+  },
+  {
+    name: 'addcartsuccess',
+    path: '/addcartsuccess',
+    component: AddCartSuccess,
+    meta: {
+      showFooter: true
+    }
+  },
 
 ]
 

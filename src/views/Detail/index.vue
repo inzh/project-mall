@@ -360,7 +360,8 @@ export default {
   data () {
     return {
       selected: false,
-      skuNum: 1
+      skuNum: 1,
+      selectedAttr: []
     }
   },
   mounted () {
@@ -393,9 +394,26 @@ export default {
       }
       this.skuNum = val
     },
+    // 用到 await 就必须要 async
     async addShopCart () {
       try {
+        // 点击加入购物车，就向服务器请求 加入购物车，请求加入购物车不需要任何返回值，只需要判断成功与否
         await this.$store.dispatch('addOrUpdateShopCart', { skuId: this.$route.params.skuId, skuNum: this.skuNum })
+        // 只有服务器返回请求成功，才会执行路由跳转，否则跳到 catch 行捕获错误
+        // 路由跳转时需带上 购买数量以及购买商品详情，购买数量可以通过query参数传递，购买商品详情是一个对象，通过session传递
+        this.$router.push({ name: 'addcartsuccess', query: { skuNum: this.skuNum } })
+        // this.spuSaleAttrList 带有 __ob__:Observer 不能直接使用数组方法，先转 json ，再从 json 转回数组
+        let spuSaleAttrList = JSON.parse(JSON.stringify(this.spuSaleAttrList))
+        // 将选择的商品属性加入 selectedAttr 数组，当点击加入购物车，一同写入 sessionStorage
+        for (let spuSaleAttr of spuSaleAttrList) {
+          for (let spuSaleAttrValue of spuSaleAttr.spuSaleAttrValueList) {
+            if (spuSaleAttrValue.isChecked == '1') {
+              this.selectedAttr.push(spuSaleAttrValue)
+            }
+          }
+        }
+        sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo))
+        sessionStorage.setItem('SELECTEDINFO', JSON.stringify(this.selectedAttr))
       } catch (error) {
         alert(error.message)
       }

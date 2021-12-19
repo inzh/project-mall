@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-18 11:45:39
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-18 22:30:10
+ * @LastEditTime: 2021-12-18 22:38:51
  * @Description:
  */
 import { reqDetail, reqAddOrUpdateShopCart } from "@/api"
