@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-18 11:38:50
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-18 22:38:26
+ * @LastEditTime: 2021-12-19 14:20:12
  * @Description:
  */
 
@@ -12,6 +12,7 @@ import Register from '@/views/Register'
 import Search from '@/views/Search'
 import Detail from '@/views/Detail'
 import AddCartSuccess from '@/views/AddCartSuccess'
+import ShopCart from '@/views/ShopCart'
 const routes = [
   {
     path: '',
@@ -97,6 +98,14 @@ const routes = [
       showFooter: true
     }
   },
+  {
+    name: 'shopcart',
+    path: '/shopcart',
+    component: ShopCart,
+    meta: {
+      showFooter: true
+    }
+  }
 
 ]
 
