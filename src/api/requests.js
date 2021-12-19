@@ -2,14 +2,14 @@
  * @Author: inzh
  * @Date: 2021-12-11 20:00:13
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-14 09:01:39
+ * @LastEditTime: 2021-12-19 17:46:03
  * @Description: axios二次封装
  * 封装的意义：当 axios 不再维护，只需要改这里，暴露出去的网络请求对象为 requests
  */
 import axios from "axios"
 import nprogress from "nprogress"
 import 'nprogress/nprogress.css'
-
+import store from "@/store"
 // 当创建 axios 实例时为 axios实例设定默认值
 // 当调用 requests(config) 时，类似调用 Object.assign(defaultConfig, config)
 // 将传入的 config 和这里默认设置的配置合并
@@ -24,7 +24,8 @@ const requests = axios.create({
 // 添加请求拦截器
 requests.interceptors.request.use((config) => {
   // 发送请求之前做些什么
-
+  // 每次请求的请求头都带上 uuidToken， 注意这里的 userTempId 不能随便写
+  config.headers['userTempId'] = store.state.detail.uuidToken
   // 发送请求之前 启用 nprogress进度条
   nprogress.start()
   return config

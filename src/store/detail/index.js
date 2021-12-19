@@ -2,13 +2,16 @@
  * @Author: inzh
  * @Date: 2021-12-18 11:45:39
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-18 22:38:51
+ * @LastEditTime: 2021-12-19 17:41:47
  * @Description:
  */
 import { reqDetail, reqAddOrUpdateShopCart } from "@/api"
+import { getUUID } from '@/utils/uuid_token'
 const detail = {
   state: {
-    detailInfo: {}
+    detailInfo: {},
+    // 当挂载 detail这个仓库时，就生成临时 uuid_token
+    uuidToken: getUUID()
   },
   getters: {
     // 这里的 state 参数表示当前 modules 中的 state
