@@ -17,6 +17,7 @@
               type="checkbox"
               name="chk_list"
               :checked="cart.isChecked == 1"
+              @change="changeSelect($event, cart.skuId)"
             />
           </li>
           <li class="cart-list-con2">
@@ -55,7 +56,7 @@
             <span class="sum">{{ cart.skuNum * cart.skuPrice }}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#none" class="sindelet">删除</a>
+            <a class="sindelet" @click="deleteSku(cart.skuId)">删除</a>
             <br />
             <a href="#none">移到收藏</a>
           </li>
@@ -67,13 +68,13 @@
         <input
           class="chooseAll"
           type="checkbox"
-          :checked="selectAll"
+          :checked="selectAll && cartInfoList.length > 0"
           @change="changeSelectAll"
         />
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a @click="deleteSelectedSku">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -110,6 +111,14 @@ export default {
         alert(error.message)
       }
     },
+    async deleteSku (skuId) {
+      try {
+        await this.$store.dispatch('deleteSku', skuId)
+        this.getCartList()
+      } catch (error) {
+        alert(error.message)
+      }
+    },
     changeSkuNum: throttle(async function (cart, type, disNum) {
       switch (type) {
         case 'minus':
@@ -134,10 +143,35 @@ export default {
         return Promise.reject(new Error('修改失败'))
       }
     }, 1000),
-    changeSelectAll () {
-      this.cartInfoList.forEach(item => {
+    async changeSelectAll (e) {
+      let isChecked = e.target.checked == true ? 1 : 0
+      try {
+        await this.$store.dispatch('modifyAllSelected', isChecked)
+        this.getCartList()
+      } catch {
 
-      })
+      }
+    },
+    async changeSelect (e, skuId) {
+      try {
+        if (e.target.checked == true) {
+          await this.$store.dispatch('modifySelected', { skuId: skuId, isChecked: 1 })
+        } else {
+          await this.$store.dispatch('modifySelected', { skuId: skuId, isChecked: 0 })
+        }
+        this.getCartList()
+      } catch {
+        return Promise.reject(new Error('修改失败'))
+      }
+
+    },
+    async deleteSelectedSku () {
+      try {
+        await this.$store.dispatch('deleteSelectedSku')
+        this.getCartList()
+      } catch (error) {
+        alert(error.message)
+      }
     }
   },
   computed: {
@@ -149,12 +183,13 @@ export default {
       return this.cartInfoList.reduce((price, item) => item.isChecked == 1 ? price += (item.cartPrice * item.skuNum) : price += 0, 0)
     },
     selectAll () {
+      let flag = true
       this.cartInfoList.forEach(item => {
         if (item.isChecked == 0) {
-          return false
+          flag = false
         }
       })
-      return true
+      return flag
     }
   }
 }

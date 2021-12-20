@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 20:00:36
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-19 19:06:27
+ * @LastEditTime: 2021-12-20 19:48:42
  * @Description: 将 API 统一管理，防止 URL 发生改变时需要到处修改 URL
  */
 import requests from './requests'
@@ -39,4 +39,14 @@ export const reqAddOrUpdateShopCart = (skuId, skuNum) => requests({
 export const reqCartList = () => requests({
   url: '/cart/cartList',
   method: 'get'
+})
+
+export const reqModifyChecked = (skuID, isChecked) => requests({
+  url: `/cart/checkCart/${skuID}/${isChecked}`,
+  method: 'get'
+})
+
+export const reqDeleteSku = (skuId) => requests({
+  url: `/cart/deleteCart/${skuId}`,
+  method: 'delete'
 })
