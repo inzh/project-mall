@@ -147,7 +147,6 @@ export default {
       let isChecked = e.target.checked == true ? 1 : 0
       try {
         await this.$store.dispatch('modifyAllSelected', isChecked)
-        this.getCartList()
       } catch {
 
       }

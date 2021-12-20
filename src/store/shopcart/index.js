@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-19 17:13:11
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-20 19:59:16
+ * @LastEditTime: 2021-12-20 20:31:48
  * @Description:
  */
 import { reqCartList, reqModifyChecked, reqDeleteSku } from "@/api"
@@ -40,10 +40,12 @@ const shopcart = {
     },
     async modifyAllSelected ({ dispatch, getters }, isChecked) {
       let promiseArr = []
-      getters.cartInfoList.forEach(item => {
-        let p = dispatch('modifySelected', { skuId: item.skuId, isChecked })
+      for (let cart of getters.cartInfoList) {
+        let p = await dispatch('modifySelected', { skuId: cart.skuId, isChecked })
         promiseArr.push(p)
-      })
+      }
+      let getCartList = await dispatch('getCartList')
+      promiseArr.push(getCartList)
       return Promise.all(promiseArr)
     },
     async deleteSku ({ commit }, skuId) {
