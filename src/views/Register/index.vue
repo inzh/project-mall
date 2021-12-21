@@ -22,7 +22,7 @@
       <div class="content">
         <label>登录密码:</label>
         <input
-          type="text"
+          type="password"
           placeholder="请输入你的登录密码"
           v-model="password"
         />
@@ -30,7 +30,11 @@
       </div>
       <div class="content">
         <label>确认密码:</label>
-        <input type="text" placeholder="请输入确认密码" v-model="repassword" />
+        <input
+          type="password"
+          placeholder="请输入确认密码"
+          v-model="repassword"
+        />
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="controls">
@@ -39,7 +43,7 @@
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="btn">
-        <button>完成注册</button>
+        <button @click="userRegister">完成注册</button>
       </div>
     </div>
 
@@ -78,6 +82,14 @@ export default {
       try {
         await this.$store.dispatch('getRegisterCode', this.phone)
         this.code = this.$store.state.userinfo.code
+      } catch (error) {
+        alert(error.message)
+      }
+    },
+    async userRegister () {
+      try {
+        await this.$store.dispatch('userRegister', { phone: this.phone, password: this.password, code: this.code })
+        this.$router.push({ name: 'login' })
       } catch (error) {
         alert(error.message)
       }

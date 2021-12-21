@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 20:00:36
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-21 15:30:51
+ * @LastEditTime: 2021-12-21 15:44:15
  * @Description: 将 API 统一管理，防止 URL 发生改变时需要到处修改 URL
  */
 import requests from './requests'
@@ -54,4 +54,10 @@ export const reqDeleteSku = (skuId) => requests({
 export const reqRegisterCode = (phone) => requests({
   url: `/user/passport/sendCode/${phone}`,
   method: 'get'
+})
+
+export const reqRegister = (data) => requests({
+  url: '/user/passport/register',
+  method: 'POST',
+  data
 })
