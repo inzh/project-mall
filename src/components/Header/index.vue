@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:58:19
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-21 20:53:13
+ * @LastEditTime: 2021-12-21 22:44:40
  * @Description:
 -->
 <template>
@@ -112,6 +112,7 @@ export default {
     async clearUserLogin () {
       try {
         await this.$store.dispatch('userLogout')
+        this.$router.push('/')
       } catch (error) {
         alert('注销失败')
       }

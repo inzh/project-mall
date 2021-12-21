@@ -2,12 +2,13 @@
  * @Author: inzh
  * @Date: 2021-12-10 21:23:38
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-18 11:41:26
+ * @LastEditTime: 2021-12-21 22:41:10
  * @Description:
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
+import store from '@/store'
 Vue.use(VueRouter)
 
 
@@ -18,6 +19,35 @@ const router = new VueRouter({
   routes,
   scrollBehavior (to, from, savedPosition) {
     return { y: 0 }
+  }
+})
+
+router.beforeEach(async (to, from, next) => {
+  let token = store.state.userinfo.token
+  let name = store.state.userinfo.userInfo.name
+  if (token) {
+    if (to.path == '/login') {
+      next('/home')
+    } else {
+      if (name) {
+        next()
+      } else {
+        try {
+          await store.dispatch('getUserInfo')
+          next()
+        } catch (error) {
+          await store.dispatch('userLogout')
+          next('/login')
+        }
+      }
+    }
+  } else {
+    if (to.path == '/login' || to.path == '/register' || to.path == '/home') {
+      next()
+    } else {
+      alert('请先登录')
+      next('/login')
+    }
   }
 })
 

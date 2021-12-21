@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-21 20:34:53
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-21 20:52:06
+ * @LastEditTime: 2021-12-21 22:43:25
  * @Description:
  */
 
@@ -12,7 +12,7 @@ export const setToken = (token) => {
 }
 
 export const getToken = () => {
-  return localStorage.getItem(USERTOKEN) || {}
+  return localStorage.getItem(USERTOKEN) || ''
 }
 
 export const removeToken = () => {
