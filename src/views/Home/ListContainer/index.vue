@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:09:05
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-14 17:32:42
+ * @LastEditTime: 2021-12-21 15:15:22
  * @Description:
 -->
 <template>
@@ -200,7 +200,7 @@ export default {
           width: 25%;
 
           .list-item {
-            background-image: url(./images/icons.png);
+            background-image: url(~@/assets/images/icons.png);
             width: 61px;
             height: 40px;
             display: block;

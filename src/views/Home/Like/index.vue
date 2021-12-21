@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 19:11:01
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-11 19:31:09
+ * @LastEditTime: 2021-12-21 15:14:45
  * @Description:
 -->
 <template>
@@ -87,7 +87,7 @@ export default {
 
       .fr {
         float: right;
-        background-image: url(./images/icons.png);
+        background-image: url(~@/assets/images/icons.png);
         width: 66px;
         height: 25px;
         background-position: 182px -104px;
