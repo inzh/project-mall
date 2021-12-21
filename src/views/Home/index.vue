@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:57:04
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-14 17:42:40
+ * @LastEditTime: 2021-12-21 16:28:48
  * @Description:
 -->
 <template>
@@ -39,6 +39,7 @@ export default {
   // 应该在Home组件中请求 floor 数据
   mounted () {
     this.$store.dispatch('getFloors')
+    this.$store.dispatch('getUserInfo')
   },
   computed: {
     ...mapState({

@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 20:00:13
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-19 17:46:03
+ * @LastEditTime: 2021-12-21 16:24:16
  * @Description: axios二次封装
  * 封装的意义：当 axios 不再维护，只需要改这里，暴露出去的网络请求对象为 requests
  */
@@ -26,6 +26,10 @@ requests.interceptors.request.use((config) => {
   // 发送请求之前做些什么
   // 每次请求的请求头都带上 uuidToken， 注意这里的 userTempId 不能随便写
   config.headers['userTempId'] = store.state.detail.uuidToken
+  // 如果用户登录，携带有token，则将token加到请求头
+  if (store.state.userinfo.token) {
+    config.headers.token = store.state.userinfo.token
+  }
   // 发送请求之前 启用 nprogress进度条
   nprogress.start()
   return config

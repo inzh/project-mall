@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 20:00:36
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-21 15:44:15
+ * @LastEditTime: 2021-12-21 20:54:04
  * @Description: 将 API 统一管理，防止 URL 发生改变时需要到处修改 URL
  */
 import requests from './requests'
@@ -60,4 +60,20 @@ export const reqRegister = (data) => requests({
   url: '/user/passport/register',
   method: 'POST',
   data
+})
+
+export const reqUserLogin = (data) => requests({
+  url: '/user/passport/login',
+  method: 'post',
+  data
+})
+
+export const reqUserInfo = () => requests({
+  url: '/user/passport/auth/getUserInfo',
+  method: 'GET'
+})
+
+export const reqLogout = () => requests({
+  url: '/user/passport/logout',
+  method: 'get'
 })

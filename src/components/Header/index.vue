@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-10 20:58:19
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-16 21:29:50
+ * @LastEditTime: 2021-12-21 20:53:13
  * @Description:
 -->
 <template>
@@ -12,12 +12,15 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
-            <span>请</span>
+          <p v-if="!userInfo.name">
+            <span>请 </span>
             <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
             <!-- <a href="###">登录</a>
             <a href="####" class="register">免费注册</a> -->
+          </p>
+          <p v-else>
+            {{ userInfo.name }} | <a @click="clearUserLogin">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -105,6 +108,18 @@ export default {
         location.query = this.$route.query
         this.$router.push(location)
       }
+    },
+    async clearUserLogin () {
+      try {
+        await this.$store.dispatch('userLogout')
+      } catch (error) {
+        alert('注销失败')
+      }
+    }
+  },
+  computed: {
+    userInfo () {
+      return this.$store.state.userinfo.userInfo
     }
   }
 }
