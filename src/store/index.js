@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-12 16:17:52
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-21 15:31:25
+ * @LastEditTime: 2021-12-22 11:42:57
  * @Description:
  */
 import Vue from 'vue'
@@ -12,6 +12,7 @@ import search from './search'
 import detail from './detail'
 import shopcart from './shopcart'
 import userinfo from './userinfo'
+import trade from './trade'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -26,7 +27,8 @@ const store = new Vuex.Store({
     search,
     detail,
     shopcart,
-    userinfo
+    userinfo,
+    trade
   }
 })
 

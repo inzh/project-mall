@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-18 11:38:50
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-19 14:20:12
+ * @LastEditTime: 2021-12-22 11:31:43
  * @Description:
  */
 
@@ -13,6 +13,7 @@ import Search from '@/views/Search'
 import Detail from '@/views/Detail'
 import AddCartSuccess from '@/views/AddCartSuccess'
 import ShopCart from '@/views/ShopCart'
+import Trade from '@/views/Trade'
 const routes = [
   {
     path: '',
@@ -40,6 +41,14 @@ const routes = [
     component: Register,
     meta: {
       showFooter: false
+    }
+  },
+  {
+    name: 'trade',
+    path: '/trade',
+    component: Trade,
+    meta: {
+      showFooter: true
     }
   },
   // {

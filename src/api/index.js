@@ -2,7 +2,7 @@
  * @Author: inzh
  * @Date: 2021-12-11 20:00:36
  * @LastEditors: inzh
- * @LastEditTime: 2021-12-21 20:54:04
+ * @LastEditTime: 2021-12-22 12:07:49
  * @Description: 将 API 统一管理，防止 URL 发生改变时需要到处修改 URL
  */
 import requests from './requests'
@@ -75,5 +75,15 @@ export const reqUserInfo = () => requests({
 
 export const reqLogout = () => requests({
   url: '/user/passport/logout',
+  method: 'get'
+})
+
+export const reqUserAddressInfo = () => requests({
+  url: '/user/userAddress/auth/findUserAddressList',
+  method: 'get'
+})
+
+export const reqUserTradeInfo = () => requests({
+  url: '/order/auth/trade',
   method: 'get'
 })
